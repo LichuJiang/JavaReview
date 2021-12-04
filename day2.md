@@ -42,4 +42,73 @@ public enum Season{
  互斥关系，因为final修饰的类是不可继承的，而abstract就是想要子类继承从而重写类内的抽象方法  
  抽象方法定义通用功能让子类重写，final定义的方法子类不能重写  
  
+ ### 抽象类的应用，模板方法模式
+ 当系统中出现同一个功能在多出开发，而该功能中大部分代码是一样的，只有其中部分可能不同的时候  
+ #### 实现步骤
+ 把功能定义成一个所谓的模板方法，放在抽象类中，模板方法中只能定义通用且能确定的代码  
+ 不能决定的功能定义成抽象方法让具体子类去实现 
+ 模板方法最好是在开头加final修饰，因为它是给子类直接使用的，不是让子类重写的，一旦子类重写模板方法，那这个方法就失效了  
  
+ ### 接口
+ 接口是更加彻底的抽象  在jdk8之前：
+ ```java
+ public interface 接口名{
+    //常量
+    //抽象方法
+ }
+ ```
+ 接口不能实例化  
+ 接口中的成员都是public修饰的，写不写都是，因为规范的目的是为了公开化  
+ ```java
+ public interface SportManInterface{
+ 	//接口中的成员：JDK1.8之前只有常量 和 抽象方法
+	//public static final 可以省略不写，接口会默认为你加上
+ 	String SCHOOL_NAME="NEW YORK UNIVERSITY"//等同于public static final String SCHOOL_NAME="NEW YORK UNIVERSITY"
+	//抽象方法
+	public abstract void run()//public abstract 可以省略不写，系统会给你默认加上
+	//void run() 即可  
+```
+### 接口的用法
+接口是用来被类实现(implements)的，实现接口的类称为实现类。实现类可以理解成为所谓的子类  
+```java
+修饰符 class 实现类implements 接口1，接口2，接口3，...{
+}
+实现的关键字：implements
+```
+接口可以被类单实现，也可被类多实现  
+idea IDE 小技巧，alt+enter可选定需要重新给多少  
+
+#### 接口注意事项
+一个类实现接口，需要重写所有接口的全部抽象方法，否则这个类需要定义成抽象类  
+
+#### 总结 
+类和类之间关系：单继承  
+类和接口的关系：多实现  
+接口和接口的关系：多继承（但应该注意如果两个接口有同名函数，行为和返回值都一样，就可以通过多继承，实现类只需要实现一次同名函数，但是返回值或者行为不一样，那通过多继承来简化代码，想要实现类中只实现一次同名函数，就会有冲突）  
+
+### jdk8之后接口新增的特性
+允许接口中直接定义带有方法体的方法  
+#### 默认方法
+类似之前的普通实例方法，必须用default修饰  
+默认会被public修饰，需要接口的实现类的对象来调用  
+```java
+default void run(){
+	System.out.println("run");
+}
+```
+#### 静态方法
+默认会被public修饰，必须static修饰  
+tips：接口的静态方法必须用本身的接口名来调用  
+```java
+static void inAddr(){
+	System.out.println("In new york");
+}
+```
+#### 私有方法
+私有的实例方法，必须用private修饰，从JDK9才开始有的  
+只能在本类中被其他的默认方法或者私有方法访问  
+```java
+private void go(){
+	System.out.println("run");
+}
+```
