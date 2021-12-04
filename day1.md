@@ -18,7 +18,7 @@ public class SingleInstance{
 ```java
 public class SingleInstance{
   //创建一个静态的成员变量存储本类的对象，注意，此时不初始化对象
-  public static SingleInstance instance;
+  private static SingleInstance instance;
   //私有构造器
   private SingleInstance(){}
   //定义一个方法，让其他地方可以来调用获取一个对象
@@ -30,3 +30,10 @@ public class SingleInstance{
     }
 }
 ```
+### 继承
+子类（派生类），父类（基类，超类）
+子类 extends 父类  
+子类方法中访问成员（成员变量和成员方法）满足：就近原则  
+先子类局部范围找  
+然后子类成员范围找  
+然后父类成员范围找，还没有就报错  
