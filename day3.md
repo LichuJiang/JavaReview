@@ -107,4 +107,55 @@ Outer.Inner in=new Outer().new Inner();
 ```
 无static修饰，属于外部的对象  
 可以直接访问外部类的静态成员，实例方法中可以直接访问外部类的实例成员  
+在成员内部类中访问所在外部类对象的格式：外部类名.this  
+
+局部内部类（了解即可）无意义  
+
+### 匿名内部类
+本质上是一个没有名字的局部内部类，定义在方法中，代码块中等  
+作用：方便创建子类对象，最终目的为了简化代码编写  
+格式：  
+new 类|抽象类名|接口名(){
+    重写方法;
+}
+```java
+Employee a=new Employee(){
+    public void work(){
+    }
+};
+a.work();
+```
+匿名内部类是没有名字的内部类  
+匿名内部类写出来就会产生一个匿名内部类的对象  
+匿名内部类的对象类型相当于是当前new的那个类型的子类类型  
+
+#### 匿名内部类的常见使用语法
+```java
+//游泳接口
+public interface Swimming{
+    void swim();
+}
+//测试类
+public class JumppingDemo{
+    public static void main(String[] args){
+        Swimming s1=new Swimming(){
+            @override
+            public void swim(){
+                System.out.prinln("the teacher swim faster");
+            }
+        };
+        go(s1);
+    }
+    //定义一个方法让角色一起来比赛
+    public static void goSwimming(Swimming swimming){
+        swimming.swim();
+    }
+}
+```
+#### 总结
+开发中不是我们要去主动定义匿名内部类的，而是别人需要我们写或者我们可以写的时候才会使用，匿名内部类的代码可以实现代码的进一步简化（回归主题）  
+
+
+
+
 
