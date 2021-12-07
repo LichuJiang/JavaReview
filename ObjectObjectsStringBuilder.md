@@ -51,7 +51,63 @@ sb.append("123").append("456");
 String st=sb.toString();
 ```
 String拼接效率比StringBuilder效率低  
-因为String内容是不可变的，拼接的时候需要创建StringBuilder对象，再从常量池中拿出对象拼接，再转成String对象  
+因为String内容是不可变的，用+号拼接的时候需要创建StringBuilder对象，再从常量池中拿出对象拼接，再转成String对象  
 而StringBuilder不需要额外创建其他类对象，可以直接拼接  
 定义字符串使用String，如果需要拼接，修改等操作字符串，就使用StringBuilder  
 
+### Math类
+Math类没有提供公开的构造器，所以不能对外创建对象  
+Math类中的成员都是静态的，所以直接通过类名就能调用  
+
+#### Math类常用方法
+```java
+public static int abs(int a) 取绝对值
+public static double ceil(double a) 向上取整 
+public static double floor(double a) 向下取整
+public static int round(float a) 四舍五入
+public static int max(int a, int b) 获取两个int中较大值
+public static double pow(double a, double b) 返回a的b次幂的值
+public static random() 返回值为double的随机值，范围[0.0,1.0)
+```
+
+### System类
+System类都是通用的，直接用类名调即可  
+```java
+public static void exit(int status) 终止当前运行的Java虚拟机，非零表示异常终止
+public static long currentTimeMillis() 返回当前系统的时间毫秒值形式 用long是因为它很大，返回从1970-1-1 00：00：00走到此刻的总毫秒数
+public static void arraycopy(数据源数组，起始索引，目的地数组，起始索引，拷贝个数）数组拷贝
+```
+
+### BigDecimal类
+用于解决浮点型运算精度失真的问题  
+使用前需要创建对象BigDecimal  
+禁止使用构造方法BigDecimal(double)的方式把double值转为BigDecimal对象，因为存在精度损失风险  
+优先推荐入参为String的构造方法，或使用BigDecimal的valueOf方法，此方法内部起始执行了Double的toString，而Double的toString按double的实际能表达的精度对尾数进行了截断  
+eg：
+```java
+BigDecimal recommend1=new BigDecimal("0.1");
+BigDecimal recommend2=BigDecimal valueOf(0.1); //best
+```
+#### 常见方法
+public BigDecimal add(BigDecimal b)  
+public BigDecimal subtract(BigDecimal b)  
+public BigDecimal multiply(BigDecimal b)  
+public BigDecimal divide(BigDecimal b)  
+public BigDecimal divide(BigDecimal b,精确几位，舍入模式)  
+eg:
+```java
+BigDecimal a1=BigDecimal.valueOf(a);
+BigDecimal b1=BigDecimal.valueOf(b);
+BigDecimal c1=a1.add(b1);
+
+double rs=c1.doubleValue();
+System.out.println(rs);
+```
+运算完之后需要用doubleValue转回double，与StringBuilder类似  
+
+注意：BigDecimal一定是需要精确运算，如果是除不尽，就需要在divide里加参数  
+eg：
+```java
+a1.divide(b1,2,RoundingMode.HALF_UP)//a1=10.0, b1=3.0, result=3.33
+//参数一，除数，参数二，保留小数位数，参数三，舍入模式
+```
