@@ -56,7 +56,7 @@ public Date parse(String source) 从给定字符串的开始解析文本以生�
 
 //有一个时间2021年08月06日 11：11：11 往后2天14小时49分06秒后的时间是多少
 //1.把字符串时间读取
-String dateStr = "2021年08月06日 11：11：11）；
+String dateStr = "2021年08月06日 11：11：11"；
 //2.吧字符串时间解析成日期对象（重点）：形式必须与被解析时间的形式完全一样否则运行时解析报错
 SimpleDateFormat sdf=new SimpleDateFormat("yyyy年MM月dd日 HH:mm：ss");
 sdf.parse(dateStr);
@@ -107,3 +107,69 @@ LocalDate localDate=LocalDate.of(2009,11,11);
 修改后返回一个新的实例引用，因为上述三个类都是不可变的  
 nowTime.plusHours(1);
 nowTime.minusHours(1);
+
+#### 其他API
+```java
+a.equals(b)  
+a.isBefore(b)  
+a.isAfter(b)  
+a.getMonthValue()
+a.getDayOfMonth()
+```
+### instant时间戳
+Instant类由一个静态的工厂方法now()可以返回当前时间戳  
+```java
+Instant instant=Instant.now();
+System.out.println("当前时间戳是："+instant.atZone(ZoneId.systemDefault());
+
+Date date=Date.from(instant);//时间戳转日期对象
+System.out.println("当前时间戳是："+date);
+
+instant=date.toInstant();//日期转时间戳
+System.out.println(instant);
+```
+
+### DateTimeFormatter
+```java
+LocalDateTime ldt=LocalDateTime.now();
+DateTimeFormatter dtf=DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss EEE a")
+//正向格式化
+dtf.format(ldt);
+//逆向格式化
+ldt.format(dtf);//正逆结果相同
+
+//解析字符串时间
+DateTimeFormatter dtf1=DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+//解析当前字符串时间成为本地日期时间对象
+LocalDateTime ldt1=LocalDateTime.parse("2019-11-11 11:11:11",dtf1);
+```
+
+### Period类
+计算日期间隔差异，只能精确到年月日    
+```java
+LocalDate today=LocalDate.now();
+
+LocalDate birthDate=LocalDate.of(1990,10,13);
+
+Period period=Period.between(birthDate,today);//第二个参数减去第一个参数
+System.out.println(period.getYears());//间隔年
+System.out.println(period.getMonths());//间隔月
+System.out.println(period.getDays());//间隔天
+```
+
+### Duration类
+计算时间间隔，可以更精确  
+```java
+LocalDateTime today = LocalDateTime.now();
+LocalDateTime birthDate-LocalDateTime.of(1990,10,1,10,50,30); 
+System.out.println(birthDate);
+
+Duration duration=Duration.between(birthDate,today);//第二个参数减去第一个参数
+System.out.println(duration.toDays());//间隔天数
+System.out.println(duration.toHours());//间隔小时数
+System.out.println(duration.toMinutes());//间隔分钟数
+System.out.println(duration.toMillis());//间隔毫秒数
+System.out.println(duration.toNanos());//间隔纳秒数
+```
+### ChronoUnit类
+可以用于在单个时间单位内测量一段时间，这个工具类最全，可用于比较所有时间单位  
