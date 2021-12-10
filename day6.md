@@ -59,7 +59,7 @@ public class RegexDemo{
         System.out.println(checkQQ2("251425998"));
     }
     public static boolean checkQQ2(String qq){
-        return qq!=null&&qq.matches("\\d{6,20}");
+        return qq!=null&&qq.matches("\\d{6,20}");//第一个\是转义字符
     }
     
     
@@ -81,7 +81,7 @@ public class RegexDemo{
 }
 ```
 ### 常用正则表达式
-#### 字符类  
+#### 字符类(默认匹配一个字符）  
 正则表达式|含义
 :-:|:-:
 [abc] | 只能是a,b或c
@@ -117,3 +117,33 @@ X{n,m}|X,至少n但不超过m次
 ```java
 public boolean matches(String regex):判断是否匹配正则表达式，匹配则返回true，不匹配则返回false
 ```
+exercise：  
+```java
+//验证码，必须是数字和字符，必须是4位
+System.out.println("23dF".matches("[a-zA-Z0-9]{4}"));
+System.out.println("23_F".matches("[a-zA-Z0-9]{4}"));
+System.out.println("23dF".matches("[\\w&&[^_]]{4}"));
+System.out.println("23_F".matches("[\\w&&[^_]]{4}"));
+```
+案例：校验手机号码，邮箱，电话号码  
+```java
+phone.matches("1[3-9]\\d{9}")
+email.matches("\\w{1,30}@[a-zA-Z0-9]{2,20}(\\.([a-zA-Z0-9]{2,20}){1,2}")
+tel.matches("0\\d{2,6}-?\\d{5,20}")
+```
+
+#### 正则表达式
+```java
+public String replaceAll(String regex,String newStr) //按照正则表达式匹配的内容进行替换
+public String split(String regex) //按照正则表达式匹配的内容进行分割字符串，返回一个字符串数组
+```
+案例：  
+```java
+String names="小路dhskja324蓉儿34alskj过儿";
+String[] arrs=names.split("\\w+");//[小路,蓉儿,过儿]
+
+String names2=names.replaceAll("\\w+"," ");//小路     蓉儿   过儿
+```
+
+####正则表达式支持爬取信息
+
