@@ -150,6 +150,6 @@ String names2=names.replaceAll("\\w+"," ");//小路     蓉儿   过儿
 String regex="";//定义规则
 Pattern pattern-Pattern.compile(regex);//把这个规则编译成匹配对象
 Matcher matcher=pattern.matcher(rs);//得到一个内容匹配器对象
-while(matcher.find()){
-    System.out.println(matcher.group());
+while(matcher.find()){//找到一组
+    System.out.println(matcher.group());//打包并输出一组
 }
