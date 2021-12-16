@@ -41,7 +41,7 @@ Collection<Double> lists = new ArrayList<>();//正确！
 
 ps:
 Collection<Double> list4=new ArrayList<>();
-list4.add(23);//错误！
+list4.add(23);///错误！
 list4.add(23.0);//正确!
 ```
 
