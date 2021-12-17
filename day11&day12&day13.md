@@ -155,3 +155,19 @@ c.forEach(s->{
     System.out.println(s);
 }//c.forEach(s->System.out.println(s));
 ```
+### Collection集合存储自定义类型的对象
+```java
+Collection<Movie> movies=new ArrayList<>();
+movies.add(new Movie("rush hour",9.5,"brandon"));
+movies.add(new Movie("ready or not",9.1,"julia"));
+movies.add(new Movie("2012",8.5,"jacky"));
+System.out.println(movies);//如果类内没有重写toString方法的话，输出的就是地址  
+//即使重写了toString方法，可以输出内容了，但集合存入的是地址，操作的还是地址  
+
+for(Movie movie:movies){
+    System.out.println("Name: "+movie.getName());
+    System.out.println("Score: "+movie.getScore());
+    System.out.println("Actor: "+movie.getActor());
+}
+```
+注意：集合中存储的是元素对象的地址！  
