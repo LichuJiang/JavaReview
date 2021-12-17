@@ -95,3 +95,63 @@ Iterator中的常用方法：
 ```java
 boolean hasNext()//询问当前位置是否有元素存在，存在则返回true，不存在则返回false
 E next()//获取当前位置的元素，并同时将迭代器对象移向下一个位置，注意防止取出越界
+Collection<String> c=new ArrayList<>();
+c.add("a");
+c.add("b");
+c.add("c");
+c.add("d");
+
+//1.得到当前集合的迭代器对象
+Iterator<String> it=c.iterator();
+String ele=it.next();//ele是 a 
+String ele2=it.next();//ele是b
+
+Iterator<String> it=c.iterator();
+while(it.hasNext()){
+    String ele=it.next();
+    System.out.println(ele);
+}//输出a,b,c,d
+```
+迭代器默认位置指向当前集合的索引0，如果越界了会出现NoSuchElementException异常  
+
+#### 增强for循环
+既可以遍历集合也可以遍历数组  
+是JDK5之后出现的，其内部是一个Iterator迭代器，遍历集合相当于是迭代器的简化写法  
+实现了Iterable接口的类才可以使用迭代器和增强for，Collection接口已经实现了Iterable接口  
+格式：  
+```java
+for(元素数据类型 变量名:数组或Collection集合){
+    //在此处使用变量即可，该变量就是元素
+}
+
+
+Collection<String> c=new ArrayList<>();
+...
+for(String ele:c){
+    System.out.println(ele);
+}
+```
+增强for循环内是无法改变元素值的，因为增强for只是给了个备份  
+#### Lambda表达式遍历集合
+jdk8之后开始的Lambda表达式  
+Collection结合Lambda遍历的API 
+方法名称|说明
+:-|:-
+default void forEach(Consumer<? super T> action):|结合lambda遍历集合  
+
+
+```java
+Collection<String> c=new ArrayList<>();
+c.forEach(new Consumer<String>(){
+    @Override
+    public void accept(String s){
+        System.out.println(s);
+    }
+}
+```
+简化后
+```java
+c.forEach(s->{
+    System.out.println(s);
+}//c.forEach(s->System.out.println(s));
+```
