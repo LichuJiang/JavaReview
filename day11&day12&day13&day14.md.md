@@ -171,3 +171,71 @@ for(Movie movie:movies){
 }
 ```
 注意：集合中存储的是元素对象的地址！  
+
+### List系列集合
+#### List家族独有方法
+List集合因为支持索引，所以多了很多索引操作的独特api，其他Collection的功能List也都继承了  
+方法名称|说明
+:-|:-
+void add(int index, E element)|在此集合中的指定位置插入指定的元素
+E remove(int index)|删除指定索引处的元素，返回被删除的元素
+E set(int index, E element)|修改指定索引处的元素，返回被修改的元素
+E get(int index)|返回指定索引处的元素
+
+eg:
+```java
+ArrayList<String> list=new ArrayList<>();//普通写法
+List<String> list=new ArrayList<>();//多态写法
+list.add("java");
+list.add("java");
+list.add("SQL");
+list.add("SQL");
+//2.在某个索引位置插入元素  
+list.add(2,"HTML");
+System.out.println(list);//java java html sql sql
+//3.根据索引删除元素返回被删除元素
+System.out.println(list.remove(2));//html
+System.out.println(list);//java java sql sql
+//4.根据索引获取元素：public E get(int index) 返回集合中指定位置的元素  
+System.out.println(list.get(2));//sql
+//5.修改索引位置处的元素: public E set(int index, E element)
+//返回修改前的数据
+System.out.println(list.set(1,"goslin"));//java
+System.out.println(list);//java goslin sql sql
+```
+ArrayList底层基于数组实现，查询元素快，增删相对慢  
+LinkedList底层基于双链表实现，查询元素慢，增删首尾元素快  
+
+#### List集合的遍历方式
+1.迭代器  
+```java
+Iterator<String> it=list.iterator();
+while(it.hasNext()){
+    String ele=it.next();
+    System.out.println(ele);
+}
+```
+2.增强for循环  
+```java
+for(String ele:lists){
+    System.out.println(ele);
+}
+```
+3.Lambda表达式  
+```java
+lists.forEach(s->{
+    System.out.println(s);
+});
+```
+4.for循环(因为List集合存在索引)  
+```java
+for(int i=0;i<list.size();i++){
+    String ele=list.get(i);
+    System.out.println(ele);
+}
+```
+#### ArrayList集合底层原理
+ArrayList是基于数组实现的：根据索引定位元素快，增删需要做元素的移位操作  
+第一次创建集合并添加第一个元素的时候，在底层创建一个默认长度为10的数组  
+List<String> list=new ArrayList<>();
+list.add("a");
