@@ -254,21 +254,78 @@ public E removeLast()|从此列表中删除并返回最后一个元素
 ```java
 //栈
 LinkedList<String> stack=new LinkedList<>();
-stack.addFirst("1");
+stack.addFirst("1");//addFirst=push
 stack.addFirst("2");
 stack.addFirst("3");
 stack.addFirst("4");
 System.out.println(stack);//4,3,2,1
 System.out.println(stack.getFirst());//4
-System.out.println(stack.removeFirst());//4
+System.out.println(stack.removeFirst());//4//removeFirst=pop
 
 //队列
 LinkedList<String> queue=new LinkedList<>();
-queue.addLast("1");
+queue.addLast("1");//offerLast=addLast
 queue.addLast("2");
 queue.addLast("3");
 queue.addLast("4");
-System.out.println(queue.removeFirst());
+System.out.println(queue.removeFirst());//1
+System.out.println(queue.removeFirst());//2
+System.out.println(queue.removeFirst());//3
+System.out.println(queue);//4
+```
 
+### 集合的并发修改异常问题
+```java
+//迭代器遍历删除
+Iterator<String> it=List.iterator();
+while(it.hasNext()){
+    String ele=it.next();
+    if("Java".equals(ele)){
+        //list.remove("java");
+        it.remove();//使用迭代器删除当前位置的元素，保证不后移，能够成功遍历
+    }
+}
 
+//foreach遍历删除(会出现bug）
+for(String s:list){
+    if("java".equals(s)){
+        list.remove("java");
+    }
+}
 
+//lambda表达式(会出现bug）
+list.forEach(s->{
+    if("java".equals(s)){
+        list.remove("java");
+    }
+});
+
+//for循环（不出现异常错误，但是数据删除出现了问题，会漏掉元素）
+for(int i=0;i<list.size();i++){
+    String ele=list.get(i);
+    if("java".equals(ele)){
+        list.remove("java");
+    }
+}
+//解决方案一(倒着删）
+for(int i=list.size()-1;i>=0;i--){
+    String ele=list.get(i);
+    if("java".equals(ele)){
+        list.remove("java");
+    }
+}
+//解决方案二
+for(int i=0;i<list.size();i++){
+    String ele=list.get(i);
+    if("java".equals(ele)){
+        list.remove("java");
+        i--;
+    }
+}
+```
+当我们从集合中找出某个元素并删除的hi和可能出现一种并发修改异常问题  
+1.迭代器遍历集合且直接用集合删除元素的时候可能出现  
+2.增强for循环遍历集合且直接用集合删除元素的时候可能出现  
+如果要解决：  
+1.迭代器遍历集合但用迭代器自己的删除方法操作可以解决  
+2.使用for循环遍历并删除不会存在这个问题（注意索引位置，倒着删或删完记得--）    
