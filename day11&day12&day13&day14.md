@@ -237,5 +237,38 @@ for(int i=0;i<list.size();i++){
 #### ArrayList集合底层原理
 ArrayList是基于数组实现的：根据索引定位元素快，增删需要做元素的移位操作  
 第一次创建集合并添加第一个元素的时候，在底层创建一个默认长度为10的数组  
-List<String> list=new ArrayList<>();
-list.add("a");
+如果超过10，就扩容到原来的1.5倍再迁移
+
+#### LinkedList集合底层原理
+基于双链表实现，查询慢，首尾操作速度很快，所以API大多基于首尾操作  
+方法名称|说明
+:-|:-
+public void addFirst(E e)|在列表开头插入指定元素  
+public void addLast(E e)|将指定的元素追加到此列表的末尾
+public E getFirst()|返回此列表中的第一个元素
+public E getLast()|返回此列表中的最后一个元素
+public E removeFirst()|从此列表中删除并返回第一个元素
+public E removeLast()|从此列表中删除并返回最后一个元素  
+ 
+#### LinkedList可以完成队列结构和栈结构
+```java
+//栈
+LinkedList<String> stack=new LinkedList<>();
+stack.addFirst("1");
+stack.addFirst("2");
+stack.addFirst("3");
+stack.addFirst("4");
+System.out.println(stack);//4,3,2,1
+System.out.println(stack.getFirst());//4
+System.out.println(stack.removeFirst());//4
+
+//队列
+LinkedList<String> queue=new LinkedList<>();
+queue.addLast("1");
+queue.addLast("2");
+queue.addLast("3");
+queue.addLast("4");
+System.out.println(queue.removeFirst());
+
+
+
