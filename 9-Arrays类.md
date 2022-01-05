@@ -36,7 +36,7 @@ Student[] students=new Student[3];
 students[0]=new Student(jkl,23,175.5);
 students[1]=new Student(uio,18,185.5);
 students[2]=new Student(bnm,20,195.5);
-System.out.println(Array.toString(students));//打出的是三个地址，如果重写了Student类的toString方法，才可打印内容  
+System.out.println(Arrays.toString(students));//打出的是三个地址，如果重写了Student类的toString方法，才可打印内容  
 
 Arrays.sort(students,new Comparator<Student>(){
     @Override
