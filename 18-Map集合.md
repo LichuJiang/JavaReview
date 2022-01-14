@@ -77,12 +77,7 @@ Map<Apple, String> maps2=new TreeMap<>(new Comparator<Apple>(){
         return Double.compare(o2.getPrice(),o1.getPrice());
     }
 });
-//简化后
-Map<Apple, String> maps2=(o1,o2)->return Double.compare(o2.getPrice(),o1.getPrice());
-
-
-
-
-
+```
+![image](https://user-images.githubusercontent.com/90488225/149595311-3d3d2e0e-473a-4816-bdcf-220b5bc4f729.png)  
 
 
